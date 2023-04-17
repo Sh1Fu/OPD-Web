@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Main page </title>
+    </head>
+    <body>
+        Write here
+        Example data about first 15 records in DB with example static css:
+        <ul>
+            {% for record in records%}
+            <li><h5> {{record}} </h5></li>
+        <link type="text/css" href ="{% static 'Sensors/css/styles.css'%}" rel="stylesheet">
+        </t>{{record.datatype}}<br>
+        </t>{{record.position}}<br>
+        </t>{{record.value}}<br>
+        </t>{{record.date}}<br>
+        </t>{% endfor %}
+        </ul>
+    </body>
+</html>

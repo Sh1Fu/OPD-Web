@@ -6,6 +6,7 @@
         <title> Main page </title>
     </head>
     <body>
+        
         Write here
         Example data about first 15 records in DB with example static css:
         <ul>
@@ -16,6 +17,7 @@
         </t>{{record.position}}<br>
         </t>{{record.value}}<br>
         </t>{{record.date}}<br>
+        </t><p><a href="{{ record.get_detailed_url }}">Ссылка на значения этого сенсора</p><br>
         </t>{% endfor %}
         </ul>
     </body>

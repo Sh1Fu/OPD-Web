@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 
 class Sensor(models.Model):
     # Field name made lowercase.
@@ -15,11 +15,13 @@ class Sensor(models.Model):
     date = models.DateTimeField(db_column='Date')  # Field name made lowercase.
 
     # Methods
-    def get_absolute_url(self):
+    def get_detailed_url(self):
         """
         Returns the url to access a particular instance of MyModelName.
         """
-        return reverse('model-detail-view', args=[str(self.id)])
+        return reverse('detailed', kwargs={"sensorname" : self.sensorname,
+                                            "position" : self.position,
+                                            "datatype" : self.datatype})
 
     def __str__(self):
         """

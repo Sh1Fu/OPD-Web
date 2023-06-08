@@ -30,9 +30,10 @@ class APIView(View):
             filtered_sensors = Sensor.objects.filter(sensorname__in=filter_params['sensornames'],
                                                      datatype__in=filter_params['datatypes']).order_by(filter_params["order_by"])
             paginator = Paginator(filtered_sensors, 10)
-
-            cur_page = filter_params['page']
             num_pages = paginator.num_pages
+
+            cur_page = (filter_params['page']-1)%num_pages + 1
+            
             if not 0<cur_page<=num_pages:
                 return JsonResponse({"status":"error"})
 

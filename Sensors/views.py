@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.http import JsonResponse
 
 from Sensors.serializers import SensorAPISerializer
@@ -13,10 +13,13 @@ def index(request):
     # Get all records and slice 15
     records = Sensor.objects.all()
     sensornames = list(set(records.values_list('sensorname', flat=True)))
+    print(sensornames)
     datatypes = list(set(records.values_list('datatype', flat=True)))
     return render(request,
                   'Sensors/index.html',
-                  {'records': records})
+                  {'records': records[:15],
+                   'sensornames': sensornames,
+                   'datatypes': datatypes})
 def detailed(request, sensorname, position, datatype):
     sensor_by_time = Sensor.objects.filter(sensorname=sensorname,
                                            position=position,
@@ -26,6 +29,7 @@ def detailed(request, sensorname, position, datatype):
 class APIView(View):
     def get(self, request):
         try:
+            print(request.body)
             filter_params = json.loads(request.body)
             filtered_sensors = Sensor.objects.filter(sensorname__in=filter_params['sensornames'],
                                                      datatype__in=filter_params['datatypes']).order_by(filter_params["order_by"])
@@ -34,8 +38,6 @@ class APIView(View):
 
             cur_page = (filter_params['page']-1)%num_pages + 1
             
-            if not 0<cur_page<=num_pages:
-                return JsonResponse({"status":"error"})
 
             page_obj = paginator.get_page(cur_page)
             response = {
@@ -49,7 +51,5 @@ class APIView(View):
         else:
             return JsonResponse(response)
         
-# Задача на бэк оптимизировать этот try. Как-то некрасиво он выглядит вместе с конструкцией
-# if not 0<cur_page<=num_pages:
-#                 return JsonResponse({"status":"error"})
+        
     

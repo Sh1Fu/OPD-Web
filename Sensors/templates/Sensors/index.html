@@ -6,19 +6,44 @@
         <title> Main page </title>
     </head>
     <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>SensorName</th>
+                    <th>Datatype</th>
+                    <th>Pos</th>
+                    <th>Value</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records%}
+                <tr>
+                    <td>{{ record.sensorname }}</td>
+                    <td>{{ record.datatype }}</td>
+                    <td>{{ record.position }}</td>
+                    <td>{{ record.value }}</td>
+                    <td>{{ record.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form action={% url 'api' %} method="get">
+            {% csrf_token %}
+            {% for name in sensornames%}
+            <label><input type="checkbox" name="sensornames[]" value={{ name }}> {{ name }}</label>
+            {% endfor %}
+            {% for type in datatypes%}
+            <label><input type="checkbox" name="datatypes[]" value={{ type }}> {{ type }}</label>
+            {% endfor %}
+            
+            <button type="submit">Filter</button>
+        </form>
         
         Write here
         Example data about first 15 records in DB with example static css:
-        <ul>
-            {% for record in records%}
-            <li><h5> {{record}} </h5></li>
-        <link type="text/css" href ="{% static 'Sensors/css/styles.css'%}" rel="stylesheet">
-        </t>{{record.datatype}}<br>
-        </t>{{record.position}}<br>
-        </t>{{record.value}}<br>
-        </t>{{record.date}}<br>
-        </t><p><a href="{{ record.get_detailed_url }}">Ссылка на значения этого сенсора</p><br>
-        </t>{% endfor %}
+
         </ul>
     </body>
 </html>

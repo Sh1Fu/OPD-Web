@@ -11,6 +11,13 @@ Sensors/__pycache__/models.cpython-38.pyc
 Sensors/__pycache__/serializers.cpython-38.pyc
 Sensors/__pycache__/urls.cpython-38.pyc
 Sensors/__pycache__/views.cpython-38.pyc
+Sensors/migrations/__init__.py
+Sensors/migrations/__pycache__/__init__.cpython-38.pyc
+Sensors/migrations/__pycache__/0001_initial.cpython-38.pyc
+Sensors/migrations/__pycache__/0002_alter_sensor_options.cpython-38.pyc
+Sensors/migrations/__pycache__/0002_alter_sensordatatable_table.cpython-38.pyc
+Sensors/migrations/__pycache__/0002_sensordatatable_delete_sensor.cpython-38.pyc
+Sensors/migrations/__pycache__/0003_rename_sensordatatable_sensor.cpython-38.pyc
 static/Sensors/css/styles.css
 static/admin/css/autocomplete.css
 static/admin/css/base.css
@@ -137,10 +144,4 @@ static/admin/js/vendor/select2/i18n/zh-TW.js
 static/admin/js/vendor/xregexp/LICENSE.txt
 static/admin/js/vendor/xregexp/xregexp.js
 static/admin/js/vendor/xregexp/xregexp.min.js
-Sensors/migrations/__init__.py
-Sensors/migrations/__pycache__/__init__.cpython-38.pyc
-Sensors/migrations/__pycache__/0001_initial.cpython-38.pyc
-Sensors/migrations/__pycache__/0002_alter_sensor_options.cpython-38.pyc
-Sensors/migrations/__pycache__/0002_alter_sensordatatable_table.cpython-38.pyc
-Sensors/migrations/__pycache__/0002_sensordatatable_delete_sensor.cpython-38.pyc
-Sensors/migrations/__pycache__/0003_rename_sensordatatable_sensor.cpython-38.pyc
+.gitignore

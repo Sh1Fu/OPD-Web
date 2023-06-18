@@ -16,19 +16,23 @@ async function sendData(page) {
       })})
       .then(response => response.json())
       .then((data) => {
-
-          let page_count = document.querySelector('.page_count');
-          page_count.innerHTML = `${data.cur_page}/${data.page_count}`;
-          console.log(data);
-          let infoTable = data.data;
-          infoTable = changeDate(infoTable);
-          let tr;
-          for (let i = 0; i < infoTable.length; i++) {
-            tr = document.getElementById(i);
-            for (let key in infoTable[i]) {
-                td = tr.querySelector(`td#${key}`);
-                td.innerText = infoTable[i][key];
+          if (data.hasOwnProperty("data") && Array.isArray(data.data) && data.data.length > 0) {
+            let page_count = document.querySelector('.page_count');
+            page_count.innerHTML = `${data.cur_page}/${data.page_count}`;
+            console.log(data);
+            let infoTable = data.data;
+            infoTable = changeDate(infoTable);
+            let tr;
+            for (let i = 0; i < infoTable.length; i++) {
+              tr = document.getElementById(i);
+              for (let key in infoTable[i]) {
+                  td = tr.querySelector(`td#${key}`);
+                  td.innerText = infoTable[i][key];
+              }
             }
+          }
+          else {
+            alert("База данных не содержит данные, подходящие под заданные условия");
           }
        });
 }
@@ -77,7 +81,6 @@ function getDates() {
 }
 
 
-sendData(1);
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 for (let i = 0; i < checkboxes.length; i++) {
   checkboxes[i].checked = true;
@@ -87,6 +90,8 @@ let nextBtn = document.querySelector('.Next');
 let prevBtn = document.querySelector('.Prev');
 let textInput = document.querySelector('.textInput');
 var curPage = parseInt(document.querySelector('.page_count').innerHTML.split('/')[0]);
+setTimeout(500);
+sendData(1);
 
 applyBtn.onclick = function() {
     sendData(curPage);

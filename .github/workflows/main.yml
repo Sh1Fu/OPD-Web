@@ -7,12 +7,16 @@ on:
 jobs:
   BLACK:
     name: Run black module
+    strategy:
+      matrix:
+        python-version: ["3.9"]
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
       - run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -23,12 +27,16 @@ jobs:
     name: Lint Djagno project
     if: ${{ always() }}
     needs: [BLACK]
+    strategy:
+      matrix:
+        python-version: ["3.9"]
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
       - run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt

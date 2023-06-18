@@ -1,3 +1,4 @@
+[![Code quality assessment](https://github.com/Sh1Fu/OPD-Web/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Sh1Fu/OPD-Web/actions/workflows/main.yml)
 # OPD-Web
 
 ##  Установка зависимостей и прочее

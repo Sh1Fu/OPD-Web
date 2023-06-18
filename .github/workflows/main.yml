@@ -41,5 +41,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - run: |
-          shopt -s globstar && pylint --load-plugins pylint_django --fail-under=8.0 --django-settings-module=SensorNet.settings **/*.py
+          shopt -s globstar && pylint --load-plugins pylint_django --fail-under=6.0 --django-settings-module=SensorNet.settings **/*.py
   

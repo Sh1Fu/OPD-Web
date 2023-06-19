@@ -15,7 +15,6 @@ def index(request):
     records = Sensor.objects.all()
     sensornames = list(set(records.values_list('sensorname', flat=True)))
     datatypes = list(set(records.values_list('datatype', flat=True)))
-    print(records[:15])
     return render(request,
                   'Sensors/index.html',
                   {'sensornames': sensornames,

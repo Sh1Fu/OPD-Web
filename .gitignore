@@ -145,7 +145,6 @@ static/admin/js/vendor/select2/i18n/zh-TW.js
 static/admin/js/vendor/xregexp/LICENSE.txt
 static/admin/js/vendor/xregexp/xregexp.js
 static/admin/js/vendor/xregexp/xregexp.min.js
-<<<<<<< HEAD
 SensorNet/__pycache__/__init__.cpython-311.pyc
 SensorNet/__pycache__/settings.cpython-311.pyc
 SensorNet/__pycache__/urls.cpython-311.pyc
@@ -158,6 +157,16 @@ Sensors/__pycache__/models.cpython-311.pyc
 Sensors/__pycache__/serializers.cpython-311.pyc
 Sensors/__pycache__/urls.cpython-311.pyc
 Sensors/__pycache__/views.cpython-311.pyc
-=======
 venv/
->>>>>>> 0c899d6e80be4843ec4207a95410a546d36977d0
+Sensors/__pycache__/__init__.cpython-311.pyc
+Sensors/__pycache__/__init__.cpython-311.pyc
+Sensors/__pycache__/__init__.cpython-311.pyc
+Sensors/__pycache__/views.cpython-311.pyc
+Sensors/__pycache__/urls.cpython-311.pyc
+.gitignore
+Sensors/__pycache__/models.cpython-311.pyc
+Sensors/__pycache__/dbrouters.cpython-311.pyc
+Sensors/__pycache__/apps.cpython-311.pyc
+.gitignore
+Sensors/__pycache__/__init__.cpython-311.pyc
+.env

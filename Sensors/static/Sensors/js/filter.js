@@ -3,7 +3,7 @@ async function sendData(page) {
     let sensornames = getSensornames();
     let datatypes = getDatatypes();
     let dates = getDates();
-    fetch('api', {
+    fetch('api/table_filter', {
         method: 'post',
         headers: {'X-CSRFToken': csrftoken},
         body: JSON.stringify({
@@ -19,8 +19,7 @@ async function sendData(page) {
           if (data.hasOwnProperty("data") && Array.isArray(data.data) && data.data.length > 0) {
             let page_count = document.querySelector('.page_count');
             page_count.innerHTML = `${data.cur_page}/${data.page_count}`;
-            console.log(data);
-            let infoTable = data.data;
+            console.log(data);            let infoTable = data.data;
             infoTable = changeDate(infoTable);
             let tr;
             for (let i = 0; i < infoTable.length; i++) {

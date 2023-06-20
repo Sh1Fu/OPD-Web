@@ -11,21 +11,28 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d$+(dba=o-3*s7^mg*jj=kmu39xsuclqqyiv4&t)^h&)nobrh_'
+SECRET_KEY = env.str('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '*'])
 
 
 # Application definition
@@ -76,20 +83,20 @@ WSGI_APPLICATION = 'SensorNet.wsgi.application'
 DATABASE_ROUTERS = ('Sensors.dbrouters.MyDBRouter',)
 DATABASES = {
     'default': { 
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'django', 
-        'USER': 'django_user', 
-        'PASSWORD': 'django_user', 
-        'HOST': '127.0.0.1', 
-        'PORT': '3306',  
+        'ENGINE': env.str('DJANGO_DB_ENGINE', default='django.db.backends.mysql'), 
+        'NAME': env.str('DJANGO_DB_NAME', default='django'), 
+        'USER': env.str('DJANGO_DB_USER', default='django_user'), 
+        'PASSWORD': env.str('DJANGO_DB_PASSWORD', default='django_user'), 
+        'HOST': env.str('DJANGO_DB_HOST', default='localhost'), 
+        'PORT': env.str('DJANGO_DB_PORT', default='3306'),  
     },
     'sensor_db' : {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'sensor_db', 
-        'USER': 'sensor_net', 
-        'PASSWORD': 'sensor_net', 
-        'HOST': '127.0.0.1', 
-        'PORT': '3306', 
+        'ENGINE': env.str('SENSOR_DB_ENGINE', default='django.db.backends.mysql'), 
+        'NAME': env.str('SENSOR_DB_NAME', default='sensor_db'), 
+        'USER': env.str('SENSOR_DB_USER', default='sensor_net'), 
+        'PASSWORD': env.str('SENSOR_DB_PASSWORD', default='sensor_net'), 
+        'HOST': env.str('SENSOR_DB_HOST', default='localhost'), 
+        'PORT': env.str('SENSOR_DB_PORT', default='3306'), 
     }
 }
 

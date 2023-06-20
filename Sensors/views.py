@@ -56,7 +56,7 @@ def filter_table(request):
             'data': [SensorAPISerializer(obj) for obj in page_obj]
         }
         return JsonResponse(response)
-    elif filter_page==0:
+    elif filter_page==0 and filtered_sensors.count()>0:
         binary_response = io.BytesIO()
         binary_response.write("Название сенсора;Позиция;Тип показателя;Показатель;Дата и время\n".encode())
         for sensor in filtered_sensors:
@@ -64,6 +64,8 @@ def filter_table(request):
             binary_response.write(sensor_data_str.encode())
         binary_response.seek(0)
         return FileResponse(binary_response, as_attachment=True, filename='table.csv')
+    else:
+        return JsonResponse({"status": "error"})
 
 
 

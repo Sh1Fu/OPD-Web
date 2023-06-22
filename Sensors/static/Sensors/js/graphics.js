@@ -1,20 +1,40 @@
-function add_listeners()
+async function add_listeners()
 {
-  var sensornames = ['W-520D', 'MQ-135', 'BMP280', 'SW-18015P', 'DHT11', 'BMP180', 'GY-521', 'MQ-5'];
-        var list1 = document.getElementById("sensornames_list");
-        for(var i = 0; i < sensornames.length; i++) {
-            var option = document.createElement('option');
-            option.text = option.value = sensornames[i];
-            list1.add(option, 0);
-        }
-        
-        list1.addEventListener('click', first_list);
-        document.getElementById("parametrs_list").addEventListener('click',second_list);
-        document.getElementById("positions_list").addEventListener('click',third_list);
+      fetch('api/update_filters',{
+            method: 'post',
+            headers: {'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value},
+            body: JSON.stringify({})
+            })
+      .then(response => response.json())
+      .then((data) => 
+      {
+          var sensornames = data.sensornames;
+          var list1 = document.getElementById("sensornames_list");
+      for(var i = 0; i < sensornames.length; i++) {
+          var option = document.createElement('option');
+          option.text = option.value = sensornames[i];
+          list1.add(option, 0);
+      }
+      document.getElementById("parametrs_list").disabled = "disabled";
+      document.getElementById("positions_list").disabled = "disabled";
+      list1.addEventListener('change', first_list);
+      document.getElementById("parametrs_list").addEventListener('change',second_list);
+      document.getElementById("positions_list").addEventListener('change',third_list);
+      })
+      makeChart([],[0,0]);
 }
+
 async function first_list()
 {
+  document.getElementById("positions_list").disabled = "disabled";
   document.getElementById("parametrs_list").innerHTML = "";
+  document.getElementById("positions_list").innerHTML = "";
+  var option = document.createElement('option');
+  option.text = option.value = "Выберите тип датчика";
+  document.getElementById("parametrs_list").add(option);
+  option.text = option.value = "Выберите позицию";
+  document.getElementById("positions_list").add(option);
+
   var datatypes = [];
   fetch('api/update_filters',{
             method: 'post',
@@ -25,12 +45,14 @@ async function first_list()
           .then(response => response.json())
           .then((data) =>  {
           datatypes = data.datatypes;
+          datatypes.unshift("Выберите тип датчика");
           var list2 = document.getElementById("parametrs_list");
           for(var i = 0; i < datatypes.length; i++) {
             var option = document.createElement('option');
             option.text = option.value = datatypes[i];
             list2.add(option, 0);
         }
+
         document.getElementById("parametrs_list").disabled = "";
   })
 }
@@ -48,6 +70,7 @@ async function second_list()
           .then(response => response.json())
           .then((data) =>  {
           positions = data.positions;
+          positions.unshift("Выберите позицию")
           var list3 = document.getElementById("positions_list");
           for(var i = 0; i < positions.length; i++) {
             var option = document.createElement('option');
@@ -79,7 +102,7 @@ function makeChart(dates,vals){
       labels:dates,
       datasets: [
         {
-          label: 'Точное значение записи',
+          label: 'Показания датчика',
           data: vals,
           borderWidth: 3,
           fill:false,

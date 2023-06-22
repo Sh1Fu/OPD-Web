@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <link rel="stylesheet" href="{% static 'Sensors/css/bootstrap.min.css' %}">
+    </head>
+    <body>
+        <h1 style = "display-1" align="center"><span style = "color : #0d6efd">Построение</span> графиков</h1>
+        <div class="container-lg" style="position: relative; height:60vh; width:90vw">
+        <canvas id="line-chart"></canvas>
+        </div>
+
+        <div class = "container">
+        <select class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" id="sensornames_list" name="val" size="1">
+        <option value="">Выберите тип датчика</option>  
+        </select> 
+        <select class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" id="parametrs_list" name="val" size="1" disabled="disabled">
+        <option value="">Выберите тип данных</option>  
+        </select> 
+        <select class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" id="positions_list" name="val" size="1" disabled="disabled">
+        <option value="">Выберите позицию</option>  
+        </select> 
+        </div>
+    </body>
+    {% csrf_token %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="{% static 'Sensors/js/graphics.js' %}"></script>
+</html>

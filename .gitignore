@@ -1,7 +1,9 @@
+
 Sensors/migrations/
 SensorNet/__pycache__/
-/Sensors/__pycache__/
-/Sensors/migrations/
+Sensors/__pycache__/
+Sensors/migrations/
+
 static/Sensors/css/styles.css
 static/admin/css/autocomplete.css
 static/admin/css/base.css
@@ -128,5 +130,7 @@ static/admin/js/vendor/select2/i18n/zh-TW.js
 static/admin/js/vendor/xregexp/LICENSE.txt
 static/admin/js/vendor/xregexp/xregexp.js
 static/admin/js/vendor/xregexp/xregexp.min.js
+
 venv/
+.env
 .vscode/

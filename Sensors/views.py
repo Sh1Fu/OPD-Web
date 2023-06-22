@@ -4,6 +4,7 @@ import io
 from django.shortcuts import render
 from django.views.generic import View, ListView
 from django.http import JsonResponse, FileResponse
+from django.http import JsonResponse, FileResponse
 
 from Sensors.serializers import SensorAPISerializer
 from .models import Sensor
@@ -11,6 +12,7 @@ from django.core.paginator import Paginator
 
 import json
 # Create your views here.
+
 
 
 def index(request):
@@ -29,6 +31,7 @@ def graphics(request):
     sensornames = list(set(records.values_list('sensorname', flat=True)))
     datatypes = list(set(records.values_list('datatype', flat=True)))
     position = list(set(records.values_list('position', flat=True)))
+    return render(request,
     return render(request,
                   'Sensors/graphics.html',
                   {'sensornames': sensornames,

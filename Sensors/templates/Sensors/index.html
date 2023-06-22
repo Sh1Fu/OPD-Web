@@ -20,9 +20,8 @@
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link active" href="#">Таблица</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">О сервисе</a></li>
-                        <li class="nav-item"></li>
-                    </ul><button class="btn btn-primary" type="button">Скачать таблицу</button>
+                        <li class="nav-item"><a class="nav-link" href="graphics">Построить график</a></li>
+                    </ul><button class="btn btn-primary download-btn" type="button">Скачать таблицу</button>
                 </div>
             </div>
         </nav>
@@ -34,11 +33,11 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Название сенсора</th>
-                            <th>Позиция</th>
-                            <th>Тип показателя</th>
-                            <th>Показатель</th>
-                            <th>Дата и время</th>
+                            <th scope="col"><a onclick="title_handler(id)" id="sensorname" class="sort-by">Название сенсора</a></th>
+                            <th scope="col"><a onclick="title_handler(id)" id="position" class="sort-by">Позиция</a></th>
+                            <th scope="col"><a onclick="title_handler(id)" id="datatype" class="sort-by">Тип показателя</a></th>
+                            <th scope="col"><a onclick="title_handler(id)" id="value" class="sort-by">Показатель</a></th>
+                            <th scope="col"><a onclick="title_handler(id)" id="date" class="sort-by">Дата и время</a></th>
                         </tr>
                     </thead>
                     <tbody>

@@ -3,7 +3,7 @@
 ###########
 
 # pull official base image
-FROM python:3.9.7-alpine as builder
+FROM python:3.8.5-alpine as builder
 
 # set work directory
 WORKDIR /usr/src/sensornet
@@ -13,8 +13,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add --no-cache mariadb-dev mariadb-connector-c-dev linux-headers
+    && apk add --virtual build-deps gcc python3-dev musl-dev  \
+    && apk add --no-cache mariadb-dev mariadb-connector-c-dev linux-headers 
+
 
 
 # install dependencies
@@ -22,13 +23,13 @@ COPY ./requirements.txt .
 
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/sensornet/wheels -r requirements.txt
 
-
 #########
 # FINAL #
 #########
 
 # pull official base image
-FROM python:3.9.7-alpine
+FROM python:3.8.5-alpine
+
 
 # create directory for the app user
 RUN mkdir -p /home/sensornet
@@ -44,11 +45,11 @@ RUN mkdir $APP_HOME/staticfiles
 WORKDIR $APP_HOME
 
 # install dependencies
-
+COPY --from=builder /usr/lib/libmariadb.so.3 /usr/lib/
+RUN python -m pip install --upgrade pip
 COPY --from=builder /usr/src/sensornet/wheels /wheels
 COPY --from=builder /usr/src/sensornet/requirements.txt .
 RUN pip install --no-cache /wheels/*
-
 # copy project
 COPY . $APP_HOME
 

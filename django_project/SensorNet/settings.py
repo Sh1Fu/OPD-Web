@@ -30,7 +30,7 @@ SECRET_KEY = env.str('SECRET_KEY', default='super_s3cr3t_key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env.bool('DEBUG', default=True)
 
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '*'])

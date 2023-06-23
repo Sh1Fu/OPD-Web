@@ -8,7 +8,7 @@ services:
     command: uwsgi --ini uwsgi/uwsgi.ini
     volumes:
       - static_volume:/home/sensornet/web/staticfiles
-      - socket:/home/sensornet/web/uwsgi/sensornet.sock
+      - socket:/home/sensornet/web/sock/sensornet.sock
     env_file:
       - ./.env
     depends_on:

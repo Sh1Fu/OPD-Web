@@ -1,5 +1,3 @@
-
-
 #No need to include restframework
 def SensorAPISerializer(Sensormodel):
     return {

@@ -1,16 +1,16 @@
-from datetime import datetime
-from django.utils import timezone
 import io
+import json
+from datetime import datetime
+
+from django.core.paginator import Paginator
+from django.http import FileResponse, JsonResponse
 from django.shortcuts import render
-from django.views.generic import View, ListView
-from django.http import JsonResponse, FileResponse
-from django.http import JsonResponse, FileResponse
+from django.utils import timezone
 
 from Sensors.serializers import SensorAPISerializer
-from .models import Sensor
-from django.core.paginator import Paginator
 
-import json
+from .models import Sensor
+
 # Create your views here.
 
 
@@ -26,10 +26,6 @@ def index(request):
 
 
 def graphics(request):
-    records = Sensor.objects.all()
-    sensornames = list(set(records.values_list('sensorname', flat=True)))
-    datatypes = list(set(records.values_list('datatype', flat=True)))
-    position = list(set(records.values_list('position', flat=True)))
     return render(request, 'Sensors/graphics.html')
 
 
@@ -69,7 +65,7 @@ def filter_table(request):
             'data': [SensorAPISerializer(obj) for obj in page_obj]
         }
         return JsonResponse(response)
-    elif filter_page == 0 and filtered_sensors.count() > 0:
+    if filter_page == 0 and filtered_sensors.count() > 0:
         binary_response = io.BytesIO()
         binary_response.write(
             "Название сенсора;Позиция;Тип показателя;Показатель;Дата и время\n".encode())
@@ -78,8 +74,8 @@ def filter_table(request):
             binary_response.write(sensor_data_str.encode())
         binary_response.seek(0)
         return FileResponse(binary_response, as_attachment=True, filename='table.csv')
-    else:
-        return JsonResponse({"status": "error"})
+
+    return JsonResponse({"status": "error"})
 
 
 def sensor_records(request):
@@ -106,7 +102,8 @@ def filter_update(request):
         records = Sensor.objects.filter(**selected_filters)
         sensornames = list(set(records.values_list('sensorname', flat=True)))
         datatypes = list(set(records.values_list('datatype', flat=True)))
-        positions = sorted(list(set(records.values_list('position', flat=True))), key=lambda x: int(x), reverse=True)
+        positions = sorted(list(set(records.values_list(
+            'position', flat=True))), key=lambda x: int(x), reverse=True)
 
         response = {
             "sensornames": sensornames,

@@ -18,7 +18,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,6 +26,7 @@ environ.Env.read_env(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str('SECRET_KEY', default='super_s3cr3t_key')
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

@@ -145,3 +145,4 @@ static/admin/js/vendor/xregexp/LICENSE.txt
 static/admin/js/vendor/xregexp/xregexp.js
 static/admin/js/vendor/xregexp/xregexp.min.js
 .gitignore
+.env

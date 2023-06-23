@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     command: uwsgi --ini uwsgi/uwsgi.ini
     volumes:
-      - static_volume: /home/sensornet/web/staticfiles
-      - socket: /home/sensornet/web/uwsgi/sensornet.sock
+      - static_volume:/home/sensornet/web/staticfiles
+      - socket:/home/sensornet/web/uwsgi/sensornet.sock
     env_file:
       - ./.env
     depends_on:
@@ -16,7 +16,7 @@ services:
   db:
     image: mysql:5.7
     ports:
-      - '3306:3306'
+      - '3366:3306'
     environment:
       MYSQL_DATABASE: 'django'
       MYSQL_USER: 'django_user'
@@ -24,11 +24,12 @@ services:
       MYSQL_ROOT_PASSWORD: 'django_user'
     restart: always
     volumes:
-      - mysql_data: /var/lib/mysql
+      - mysql_data:/var/lib/mysql
   nginx:
     build: ./nginx
     volumes:
       - static_volume:/home/sensornet/web/staticfiles
+      - socket:/home/sensornet/web/sock/sensornet.sock
     ports:
       - 8443:443
     depends_on:

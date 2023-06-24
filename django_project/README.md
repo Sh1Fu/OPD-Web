@@ -109,7 +109,15 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 Далее нужно установить зависимости докера. Не смог найти их.
-Они гуглятся по первой ошибке. Сорян за такую хуйню(
+Они гуглятся по первой ошибке. Сорян за такоу(
+
+Перед запуском докера необходимо сгенерировать ключи с помощью openSSL. Делать это нужно из папки проекта:
+```
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx/nginx-selfsigned.key -out nginx/nginx-selfsigned.crt
+sudo openssl dhparam -out nginx/dhparam.pem 4096
+```
+Запуск:
+
 ```
 sudo docker-compose build
 sudo docker-compose up -d
@@ -142,10 +150,11 @@ web> python manage.py collectstatic
 web> exit
 ```
 
-После этого у нас есть рабочий сайт на ``http://localhost:8443``
+После этого у нас есть рабочий сайт на ``https://localhost``. При его открытии выйдет уведомление мол
+неизвестные ключи SSL тоси боси. Просто принимаете это и всё. Такое происходит из-за того что ключи
+наши самописные. В любом случае лучше так, чем вообще без SSL.
 
 TODO:
-1. openssl/https
-2. entrypoints.sh для колект статика и миграцийг
+1. entrypoints.sh для колект статика и миграций
 
 

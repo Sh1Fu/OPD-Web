@@ -15,3 +15,6 @@ django_project/Sensors/__pycache__/serializers.cpython-38.pyc
 django_project/Sensors/__pycache__/urls.cpython-38.pyc
 django_project/Sensors/__pycache__/views.cpython-38.pyc
 .gitignore
+nginx/nginx-selfsigned.crt
+nginx/nginx-selfsigned.key
+nginx/dhparam.pem

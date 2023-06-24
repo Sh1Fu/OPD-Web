@@ -100,3 +100,52 @@ path('', views.index, name='index'),
 джанго делает collectstatic и всё это попадает в одну общую папку. Так вот, чтобы не было конфликта имён необходимо
 обязательно создавать поддиректорию. Правда если быть честным, то конфликт произойдёт только, если будет несколько 
 приложений, а у нас оно одно, однако мы не говнари, поэтому код у нас будет хороший и расширяемый(вдруг заказчику очень понравится).
+
+**Докеры.**
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+Далее нужно установить зависимости докера. Не смог найти их.
+Они гуглятся по первой ошибке. Сорян за такую хуйню(
+```
+sudo docker-compose build
+sudo docker-compose up -d
+```
+Далее, после всех запусков необходимо узнать айдишники контейнеров:
+```
+sudo docker ps
+```
+
+Скопировать на контейнер db_sensors дамп базы:
+```
+docker cp Sensor_DB_20230306.sql sensornet_db_1:/etc/
+```
+
+Подключится к этому контейнеру и записать данные в базу:
+```
+docker exec -ti <sensornet_db_id> /bin/bash
+sensornet_db> cd /etc
+sensornet_db> mysql -u sensor_net -p sensor_db < Sensor_DB_20230306.sql
+sensor_net      
+sensornet_db> exit
+```
+
+После подключаемся к контейнеру джанги, выполняем миграции и собираем статику для nginx:
+```
+docker exec -ti <web_id> /bin/bash
+web> python manage.py makemigrations
+web> python manage.py migrate
+web> python manage.py collectstatic
+web> exit
+```
+
+После этого у нас есть рабочий сайт на ``http://localhost:8443``
+
+TODO:
+1. openssl/https
+2. entrypoints.sh для колект статика и миграцийг
+
+

@@ -41,7 +41,7 @@ services:
       - static_volume:/home/sensornet/web/static
       - socket:/home/sensornet/web/sock/
     ports:
-      - 8443:443
+      - 80:443
     depends_on:
       - web
 

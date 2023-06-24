@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.core.paginator import Paginator
 from django.http import FileResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 
 from Sensors.serializers import SensorAPISerializer
@@ -27,6 +27,11 @@ def index(request):
 
 def graphics(request):
     return render(request, 'Sensors/graphics.html')
+
+
+def redirect_view(request):
+    response = redirect('index')
+    return response
 
 
 def filter_table(request):
